@@ -1,6 +1,6 @@
 <?php
 
-namespace Application\Library\Page {
+namespace Page {
 
 class Library extends Base {
 

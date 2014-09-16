@@ -3,8 +3,12 @@
 namespace {
 
     from('Application')
-        -> import('Controller.Generic')
-        -> import('Library.Crawler.Hoa');
+        -> import('Controller.Generic');
+
+    from('Data')
+        -> import('Library.Crawler.Hoa')
+        -> import('Library.ElasticSearch.~')
+    ;
 
 }
 
@@ -43,7 +47,7 @@ class Search extends Generic {
             )
         );
 
-        return (new \Application\Library\ElasticSearch())->search($query);
+        return (new \ElasticSearch\ElasticSearch())->search($query);
     }
 }
 

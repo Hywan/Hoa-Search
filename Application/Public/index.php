@@ -27,7 +27,7 @@ $router
         '/(?<language>\w{2}).*',
         'search',
         'default',
-            array()
+        array()
     );
 
 try {

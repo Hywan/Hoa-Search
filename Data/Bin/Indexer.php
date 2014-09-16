@@ -15,27 +15,27 @@ from('Hoa')
 -> import('Console.Cursor')
 ;
 
-from('Application')
--> import('Library.ElasticSearch')
+from('Data')
+-> import('Library.ElasticSearch.~')
 -> import('Library.Crawler.Hoa')
 -> import('Library.Page.*')
 ;
 
 \Hoa\Console\Cursor::colorize('fg(green) bg(black)');
 
-$elasticSearch = new \Application\Library\ElasticSearch();
+$elasticSearch = new \ElasticSearch\ElasticSearch();
 
-$langs = Application\Library\Crawler\Hoa::$_languages;
+$langs = \Crawler\Hoa::$_languages;
 foreach($langs as $uri => $lang) {
 
-    $HoaCrawler  = new \Application\Library\Crawler\Hoa('http://hoa-project.net/'.$uri.'/');
+    $HoaCrawler  = new \Crawler\Hoa('http://hoa-project.net/'.$uri.'/');
     while($HoaCrawler->hasLinkToCrawl()) {
 
         if(!$crawler = $HoaCrawler->getNextPage()) {
             continue;
         }
 
-        $page = \Application\Library\Page\Factory::create(
+        $page = \Page\Factory::create(
             $HoaCrawler->getCurrentLink(),
             $crawler
         );

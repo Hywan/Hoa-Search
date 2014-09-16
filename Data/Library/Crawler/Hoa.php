@@ -1,6 +1,6 @@
 <?php
 
-namespace Application\Library\Crawler {
+namespace Crawler {
 
 class Hoa {
 

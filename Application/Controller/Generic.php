@@ -9,7 +9,6 @@ from('Hoa')
 -> import('Json.~');
 
 from('Application')
--> import('Model.Visitor')
 -> import('Controller.Exception');
 
 }
@@ -26,11 +25,6 @@ class Generic extends \Hoa\Dispatcher\Kit {
             'name'    => 'french'
         )
     );
-
-    public function construct ( ) {
-
-        return;
-    }
 
     public function render ( $status = \Hoa\Http\Response::STATUS_OK ) {
 
