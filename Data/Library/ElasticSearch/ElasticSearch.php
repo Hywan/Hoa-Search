@@ -44,6 +44,68 @@ class ElasticSearch {
 
         return $results;
     }
+
+    public function init( ) {
+
+        $params = [
+            'index' => self::INDEX,
+            'body' => [
+                'settings' => [
+                    'number_of_shards' => 2,
+                    'number_of_replicas' => 1,
+                    'analysis' => [
+                        'filter' => [
+                            'en_snowball' => [
+                                'type' => 'snowball',
+                                'language' => 'English'
+                            ],
+                            'worddelimiter' => [
+                                'type' => 'word_delimiter'
+                            ],
+                            'en_stopwords' => [
+                                'type' => 'stop',
+                                'stopwords' => [ '_english' ],
+                                'ignore_case' => true
+                            ]
+                        ],
+                        'tokenizer' => [
+                            'nGram' => [
+                                'type' => 'nGram',
+                                'min_gram' => 3,
+                                'max_gram' => 20,
+                            ]
+                        ],
+                        'analyzer' => [
+                            'default_index' => [
+                                'type' => 'custom',
+                                'tokenizer' => 'nGram',
+                                'filter' => [
+                                    'en_stopwords',
+                                    'asciifolding',
+                                    'lowercase',
+                                    'en_snowball',
+                                    'worddelimiter'
+                                ]
+                            ],
+                            'default_search' => [
+                                'type' => 'custom',
+                                'tokenizer' => 'standard',
+                                'filter' => [
+                                    'en_stopwords',
+                                    'asciifolding',
+                                    'lowercase',
+                                    'en_snowball',
+                                    'worddelimiter'
+                                ]
+                            ],
+                        ]
+                    ]
+                ]
+            ]
+        ];
+
+        $this->client->indices()->create($params);
+    }
 }
 
 }
