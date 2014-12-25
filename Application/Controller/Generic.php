@@ -30,8 +30,9 @@ class Generic extends \Hoa\Dispatcher\Kit {
 
         $response = new \Hoa\Http\Response();
         $response->sendStatus($status);
+        $response->sendHeader('Content-Type', 'application/json');
+        $response->writeAll(json_encode($this->data));
 
-        echo json_encode($this->data);
         exit(0);
     }
 

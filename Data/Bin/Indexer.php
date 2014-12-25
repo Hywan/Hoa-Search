@@ -16,14 +16,14 @@ from('Hoa')
 ;
 
 from('Data')
--> import('Library.ElasticSearch.~')
+-> import('Library.Elasticsearch.~')
 -> import('Library.Crawler.Hoa')
 -> import('Library.Page.*')
 ;
 
 \Hoa\Console\Cursor::colorize('fg(green) bg(black)');
 
-$elasticSearch = new \ElasticSearch\ElasticSearch();
+$elasticsearch = new \Elasticsearch\Elasticsearch();
 
 $langs = \Crawler\Hoa::$_languages;
 foreach($langs as $uri => $lang) {
@@ -46,7 +46,7 @@ foreach($langs as $uri => $lang) {
 
         echo "Index the page " . $page->getData('url')."\n";
 
-        $elasticSearch->addPage($document, $id);
+        $elasticsearch->addPage($document, $id);
     }
 }
 

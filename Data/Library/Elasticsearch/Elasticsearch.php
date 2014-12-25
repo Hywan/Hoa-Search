@@ -1,8 +1,8 @@
 <?php
 
-namespace ElasticSearch {
+namespace Elasticsearch {
 
-class ElasticSearch {
+class Elasticsearch {
 
     const HOST  = '188.165.240.124:9200';
     const INDEX = 'hoa-project';
@@ -33,13 +33,11 @@ class ElasticSearch {
         $params = array();
         $params['index'] = self::INDEX;
         $params['type']  = self::TYPE;
-        $params['body']['query'] = $query;
+        $params['body']  = $query;
 
         $ESresults = $this->client->search($params);
         if(!empty($ESresults['hits']['hits'])) {
-            foreach ($ESresults['hits']['hits'] as $result) {
-                $results[] = $result['_source'];
-            }
+            $results = array_column($ESresults['hits']['hits'], '_source');
         }
 
         return $results;
@@ -55,18 +53,9 @@ class ElasticSearch {
                     'number_of_replicas' => 1,
                     'analysis' => [
                         'filter' => [
-                            'en_snowball' => [
-                                'type' => 'snowball',
-                                'language' => 'English'
-                            ],
                             'worddelimiter' => [
                                 'type' => 'word_delimiter'
                             ],
-                            'en_stopwords' => [
-                                'type' => 'stop',
-                                'stopwords' => [ '_english' ],
-                                'ignore_case' => true
-                            ]
                         ],
                         'tokenizer' => [
                             'nGram' => [
@@ -78,12 +67,11 @@ class ElasticSearch {
                         'analyzer' => [
                             'default_index' => [
                                 'type' => 'custom',
+                                'char_filter' => ['html_strip'],
                                 'tokenizer' => 'nGram',
                                 'filter' => [
-                                    'en_stopwords',
                                     'asciifolding',
                                     'lowercase',
-                                    'en_snowball',
                                     'worddelimiter'
                                 ]
                             ],
@@ -91,10 +79,8 @@ class ElasticSearch {
                                 'type' => 'custom',
                                 'tokenizer' => 'standard',
                                 'filter' => [
-                                    'en_stopwords',
                                     'asciifolding',
                                     'lowercase',
-                                    'en_snowball',
                                     'worddelimiter'
                                 ]
                             ],

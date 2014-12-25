@@ -16,11 +16,11 @@ from('Hoa')
 ;
 
 from('Data')
--> import('Library.ElasticSearch.~')
+-> import('Library.Elasticsearch.~')
 -> import('Library.Crawler.Hoa')
 -> import('Library.Page.*')
 ;
 
-$elasticSearch = new \ElasticSearch\ElasticSearch();
+$elasticSearch = new \Elasticsearch\Elasticsearch();
 
 $elasticSearch->init();

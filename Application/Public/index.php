@@ -22,7 +22,7 @@ $dispatcher = new \Hoa\Dispatcher\Basic();
 $router = new \Hoa\Router\Http();
 
 $router
-    ->post(
+    ->get_post(
         'se',
         '/(?<language>\w{2}).*',
         'search',
