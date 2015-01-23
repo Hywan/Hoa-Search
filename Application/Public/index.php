@@ -16,7 +16,10 @@ Core::enableErrorHandler();
 Core::enableExceptionHandler();
 
 $dispatcher = new Dispatcher\ClassMethod([
-    'asynchronous.call' => '(:%synchronous.call:)'
+    'synchronous.call'  => 'Application\Controller\(:call:U:)',
+    'synchronous.able'  => '(:able:U:)Action',
+    'asynchronous.call' => '(:%synchronous.call:)',
+    'asynchronous.able' => '(:%synchronous.able:)'
 ]);
 
 $router = new Router\Http();
@@ -36,4 +39,6 @@ try {
 catch ( Core\Exception $e ) {
 
     echo 'error';
+
+    var_dump($e->getMessage());
 }

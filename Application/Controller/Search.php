@@ -9,8 +9,6 @@ class Search extends Generic {
 
     public function DefaultAction ( $language )  {
 
-        var_dump('defaultaction'); exit;
-
         if(empty($_GET['q']) && empty($_POST['q'])) {
 
             $this->render(Http\Response::STATUS_BAD_REQUEST);
