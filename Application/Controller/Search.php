@@ -14,18 +14,21 @@ from('Data')
 
 namespace Application\Controller {
 
+use Hoa\Http;
+
 class Search extends Generic {
 
-
-    public function DefaultAction ( $language )  {
+    public function DefaultAction ( $language = 'en' )  {
 
         if(empty($_GET['q']) && empty($_POST['q'])) {
-            $this->render(\Hoa\Http\Response::STATUS_BAD_REQUEST);
+
+            $this->render(Http\Response::STATUS_BAD_REQUEST);
 
             return;
         }
 
         $query = empty($_POST['q']) ? $_GET['q'] : $_POST['q'];
+
         $this->data = array_map(
             function( $row ) { unset($row['content']); return $row; },
             $this->search($language, $query)
@@ -36,21 +39,21 @@ class Search extends Generic {
         return;
     }
 
-    private function search( $language, $query )  {
+    private function search( $language = 'en', $query )  {
 
         $query =
-        array(
-            'query' => array(
-                'filtered' => array(
-                    'query' => array(
-                        'match' => array('_all' => $query)
-                    ),
-                    'filter' => array(
-                        'term' => array('lang' => self::$_languages[$language]['name'])
-                    )
-                )
-            )
-        );
+        [
+            'query' => [
+                'filtered' => [
+                    'query' => [
+                        'match' => ['_all' => $query]
+                    ],
+                    'filter' => [
+                        'term' => ['lang' => self::$_languages[$language]['name']]
+                    ]
+                ]
+            ]
+        ];
 
         return (new \Elasticsearch\Elasticsearch())->search($query);
     }

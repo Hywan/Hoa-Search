@@ -8,12 +8,8 @@ use Hoa\Http;
 class Generic extends Dispatcher\Kit {
 
     protected static $_languages = [
-        'en' => [
-            'name'    => 'english'
-        ],
-        'fr' => [
-            'name'    => 'french'
-        ]
+        'en' => ['name' => 'english'],
+        'fr' => ['name' => 'french']
     ];
 
     public function render ( $status = Http\Response::STATUS_OK ) {
