@@ -15,7 +15,7 @@ use Hoa\Router;
 Core::enableErrorHandler();
 Core::enableExceptionHandler();
 
-$dispatcher = new Dispatcher\Basic([
+$dispatcher = new Dispatcher\ClassMethod([
     'asynchronous.call' => '(:%synchronous.call:)'
 ]);
 
@@ -23,7 +23,7 @@ $router = new Router\Http();
 $router
     ->get_post(
         'se',
-        '/(?<language>\w{2})?.*',
+        '/(?<language>\w{2}).*',
         'search',
         'default',
         []

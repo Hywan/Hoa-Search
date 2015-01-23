@@ -1,24 +1,15 @@
 <?php
 
-namespace {
-
-from('Application')
-    -> import('Controller.Generic');
-
-from('Data')
-    -> import('Library.Crawler.Hoa')
-    -> import('Library.Elasticsearch.~')
-;
-
-}
-
 namespace Application\Controller {
 
 use Hoa\Http;
+use Elasticsearch\Elasticsearch;
 
 class Search extends Generic {
 
-    public function DefaultAction ( $language = 'en' )  {
+    public function DefaultAction ( $language )  {
+
+        var_dump('defaultaction'); exit;
 
         if(empty($_GET['q']) && empty($_POST['q'])) {
 
@@ -39,7 +30,7 @@ class Search extends Generic {
         return;
     }
 
-    private function search( $language = 'en', $query )  {
+    private function search( $language, $query )  {
 
         $query =
         [
@@ -55,7 +46,7 @@ class Search extends Generic {
             ]
         ];
 
-        return (new \Elasticsearch\Elasticsearch())->search($query);
+        return (new Elasticsearch())->search($query);
     }
 }
 
