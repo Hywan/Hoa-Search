@@ -33,8 +33,5 @@ try {
 }
 catch ( Core\Exception $e ) {
 
-    $router->route('/En/Error.html');
-    $rule                                           = &$router->getTheRule();
-    $rule[Router\Http::RULE_VARIABLES]['exception'] = $e;
-    $dispatcher->dispatch($router);
+    echo 'error';
 }
