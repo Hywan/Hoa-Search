@@ -1,34 +1,24 @@
 <?php
 
-namespace {
+namespace Application\Controller;
 
-from('Hoa')
--> import('Dispatcher.Kit')
--> import('File.Read')
--> import('Http.Response.~')
--> import('Json.~');
+use Hoa\Dispatcher;
+use Hoa\Http;
 
-from('Application')
--> import('Controller.Exception');
+class Generic extends Dispatcher\Kit {
 
-}
-
-namespace Application\Controller {
-
-class Generic extends \Hoa\Dispatcher\Kit {
-
-    protected static $_languages = array(
-        'en' => array(
+    protected static $_languages = [
+        'en' => [
             'name'    => 'english'
-        ),
-        'fr' => array(
+        ],
+        'fr' => [
             'name'    => 'french'
-        )
-    );
+        ]
+    ];
 
-    public function render ( $status = \Hoa\Http\Response::STATUS_OK ) {
+    public function render ( $status = Http\Response::STATUS_OK ) {
 
-        $response = new \Hoa\Http\Response();
+        $response = new Http\Response();
         $response->sendStatus($status);
         $response->sendHeader('Content-Type', 'application/json');
         $response->writeAll(json_encode($this->data));
@@ -40,7 +30,4 @@ class Generic extends \Hoa\Dispatcher\Kit {
 
         return true === array_key_exists($language, static::$_languages);
     }
-
-}
-
 }

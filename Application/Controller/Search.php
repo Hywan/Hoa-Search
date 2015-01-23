@@ -2,13 +2,13 @@
 
 namespace {
 
-    from('Application')
-        -> import('Controller.Generic');
+from('Application')
+    -> import('Controller.Generic');
 
-    from('Data')
-        -> import('Library.Crawler.Hoa')
-        -> import('Library.Elasticsearch.~')
-    ;
+from('Data')
+    -> import('Library.Crawler.Hoa')
+    -> import('Library.Elasticsearch.~')
+;
 
 }
 

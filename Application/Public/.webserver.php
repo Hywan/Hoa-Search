@@ -4,12 +4,6 @@ require_once dirname(dirname(__DIR__)) .
              DIRECTORY_SEPARATOR . 'Data' .
              DIRECTORY_SEPARATOR . 'Core.link.php';
 
-from('Hoa')
--> import('Router.Http')
--> import('Dispatcher.Basic')
--> import('File.Read')
--> import('Mime.~');
-
 $router = new Hoa\Router\Http();
 $router
     ->any('a', '.*', function ( Hoa\Dispatcher\Kit $_this ) {

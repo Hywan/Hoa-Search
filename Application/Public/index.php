@@ -8,18 +8,15 @@ require_once dirname(dirname(__DIR__)) .
     DIRECTORY_SEPARATOR . 'vendor' .
     DIRECTORY_SEPARATOR . 'autoload.php';
 
-\Hoa\Core::enableErrorHandler();
-\Hoa\Core::enableExceptionHandler();
+use Hoa\Core;
+use Hoa\Dispatcher;
+use Hoa\Router;
 
-from('Hoa')
--> import('Dispatcher.Basic')
--> import('Router.Http');
+Core::enableErrorHandler();
+Core::enableExceptionHandler();
 
-from('Application')
--> import('Controller.Generic');
-
-$dispatcher = new \Hoa\Dispatcher\Basic();
-$router = new \Hoa\Router\Http();
+$dispatcher = new Dispatcher\Basic();
+$router = new Router\Http();
 
 $router
     ->get_post(
@@ -34,10 +31,10 @@ try {
 
     $dispatcher->dispatch($router);
 }
-catch ( \Hoa\Core\Exception $e ) {
+catch ( Core\Exception $e ) {
 
     $router->route('/En/Error.html');
-    $rule                                                = &$router->getTheRule();
-    $rule[\Hoa\Router\Http::RULE_VARIABLES]['exception'] = $e;
+    $rule                                           = &$router->getTheRule();
+    $rule[Router\Http::RULE_VARIABLES]['exception'] = $e;
     $dispatcher->dispatch($router);
 }
