@@ -16,15 +16,18 @@ Core::enableErrorHandler();
 Core::enableExceptionHandler();
 
 $dispatcher = new Dispatcher\Basic();
-$router = new Router\Http();
+$dispatcher = new \Hoa\Dispatcher\Basic([
+    'asynchronous.call' => '(:%synchronous.call:)'
+]);
 
+$router = new Router\Http();
 $router
     ->get_post(
         'se',
         '/(?<language>\w{2}).*',
         'search',
         'default',
-        array()
+        []
     );
 
 try {
