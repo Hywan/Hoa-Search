@@ -15,8 +15,7 @@ use Hoa\Router;
 Core::enableErrorHandler();
 Core::enableExceptionHandler();
 
-$dispatcher = new Dispatcher\Basic();
-$dispatcher = new \Hoa\Dispatcher\Basic([
+$dispatcher = new Dispatcher\Basic([
     'asynchronous.call' => '(:%synchronous.call:)'
 ]);
 
