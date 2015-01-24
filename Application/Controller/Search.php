@@ -7,7 +7,7 @@ use Elasticsearch\Elasticsearch;
 
 class Search extends Generic {
 
-    public function DefaultAction ( $language )  {
+    public function DefaultAction ( $language = 'en' )  {
 
         if(empty($_GET['q']) && empty($_POST['q'])) {
 
@@ -16,6 +16,7 @@ class Search extends Generic {
             return;
         }
 
+        $language = strtolower($language);
         $query = empty($_POST['q']) ? $_GET['q'] : $_POST['q'];
 
         $this->data = array_map(
